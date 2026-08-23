@@ -21,8 +21,8 @@ const CATEGORIAS = [
 const BOLO_CARDS = [
   {
     icon: Shuffle,
-    title: 'Misturar sabores',
-    desc: 'Combine duas ou mais massas e recheios diferentes no mesmo pote.'
+    title: 'Escolha a massa',
+    desc: 'Selecione a massa da sua preferência para o bolo no pote.'
   },
   {
     icon: Layers,
@@ -558,14 +558,6 @@ export default function PedidoPersonalizado() {
           <OptionsWrap>
             {MASSAS_BOLO.map(m => (
               <OptionBtn key={m} selected={massaBolo === m} onClick={() => setMassaBolo(m)}>{m}</OptionBtn>
-            ))}
-          </OptionsWrap>
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <p className="cp-panel-label">Escolha o recheio</p>
-          <OptionsWrap>
-            {RECHEIOS_BOLO.map(r => (
-              <OptionBtn key={r} selected={recheioBolo === r} onClick={() => setRecheioBolo(r)}>{r}</OptionBtn>
             ))}
           </OptionsWrap>
         </div>
