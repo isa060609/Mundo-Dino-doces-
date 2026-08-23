@@ -91,34 +91,46 @@ export const OFFICIAL_PRODUCTS = [
     disponivel: true
   },
 
-  // VITAMINAS (200 ml — R$ 15,00)
+  // VITAMINAS (300 ml — R$ 15,00 | 500 ml — R$ 20,00)
   {
     id: 'vitamina-1',
     nome: 'Vitamina de Morango',
-    descricao: 'Porção de 200 ml refrescante feita com morangos frescos e leite integral gelado.',
+    descricao: 'Batida cremosa e refrescante feita com morangos frescos e leite integral gelado.',
     preco: 15.00,
     categoria: 'vitaminas',
-    tamanho: '200 ml',
+    tamanho: '300 ml',
+    tamanhos: [
+      { tamanho: '300 ml', preco: 15.00 },
+      { tamanho: '500 ml', preco: 20.00 }
+    ],
     imagem: '/batida-dino.jpg',
     disponivel: true
   },
   {
     id: 'vitamina-2',
     nome: 'Vitamina de Maracujá',
-    descricao: 'Porção de 200 ml aveludada e levemente cítrica de maracujá natural.',
+    descricao: 'Batida aveludada e levemente cítrica de maracujá natural.',
     preco: 15.00,
     categoria: 'vitaminas',
-    tamanho: '200 ml',
+    tamanho: '300 ml',
+    tamanhos: [
+      { tamanho: '300 ml', preco: 15.00 },
+      { tamanho: '500 ml', preco: 20.00 }
+    ],
     imagem: '/batida-dino.jpg',
     disponivel: true
   },
   {
     id: 'vitamina-3',
     nome: 'Vitamina de Limão',
-    descricao: 'Porção de 200 ml incrivelmente refrescante e equilibrada com toque suave de limão.',
+    descricao: 'Batida incrivelmente refrescante e equilibrada com toque suave de limão.',
     preco: 15.00,
     categoria: 'vitaminas',
-    tamanho: '200 ml',
+    tamanho: '300 ml',
+    tamanhos: [
+      { tamanho: '300 ml', preco: 15.00 },
+      { tamanho: '500 ml', preco: 20.00 }
+    ],
     imagem: '/batida-dino.jpg',
     disponivel: true
   }

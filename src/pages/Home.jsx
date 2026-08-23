@@ -72,7 +72,7 @@ export default function Home() {
             </div>
             <h3 className="category-title">Vitaminas</h3>
             <p className="category-desc">Refrescantes e deliciosas</p>
-            <div className="category-price-info">200 ml — R$ 15,00</div>
+            <div className="category-price-info">300 ml (R$ 15) | 500 ml (R$ 20)</div>
             <Link to="/vitaminas" className="btn btn-secondary btn-sm btn-full">
               Ver Vitaminas
             </Link>

@@ -26,7 +26,7 @@ export default function Vitaminas() {
         <div className="container" style={{ textAlign: 'center' }}>
           <h1 className="section-title">Vitaminas</h1>
           <p className="section-subtitle">
-            Refrescantes e deliciosas — Porção de 200 ml por R$ 15,00
+            Refrescantes e deliciosas — Opções de 300 ml (R$ 15,00) e 500 ml (R$ 20,00)
           </p>
         </div>
       </div>

@@ -5,6 +5,11 @@ import { useCart } from '../context/CartContext';
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
+  const [selectedTamanho, setSelectedTamanho] = useState(
+    product.tamanhos ? product.tamanhos[0] : null
+  );
+
+  const currentPrice = selectedTamanho ? selectedTamanho.preco : product.preco;
 
   const formatPrice = (value) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -14,7 +19,13 @@ export default function ProductCard({ product }) {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, 1);
+    const itemToAdd = {
+      ...product,
+      id: selectedTamanho ? `${product.id}-${selectedTamanho.tamanho}` : product.id,
+      tamanho: selectedTamanho ? selectedTamanho.tamanho : product.tamanho,
+      preco: currentPrice
+    };
+    addToCart(itemToAdd, 1);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
@@ -32,7 +43,7 @@ export default function ProductCard({ product }) {
     switch (cat) {
       case 'bolos': return 'Bolo no pote';
       case 'acai': return 'Açaí';
-      case 'vitaminas': return 'Vitamina';
+      case 'vitaminas': return 'Batida';
       default: return cat;
     }
   };
@@ -77,15 +88,47 @@ export default function ProductCard({ product }) {
       <div className="product-content">
         <div className="product-header-info">
           <h3 className="product-title">{product.nome}</h3>
-          {product.tamanho && (
+          {!product.tamanhos && product.tamanho && (
             <span className="product-size-tag">{product.tamanho}</span>
           )}
         </div>
 
         <p className="product-description">{product.descricao}</p>
 
+        {/* Seletor de Tamanhos quando houver opções (ex: 300 ml e 500 ml) */}
+        {product.tamanhos && (
+          <div style={{ margin: '0.75rem 0', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-muted)' }}>Tamanho:</span>
+            <div style={{ display: 'flex', gap: '0.4rem' }}>
+              {product.tamanhos.map((t) => {
+                const isSelected = selectedTamanho?.tamanho === t.tamanho;
+                return (
+                  <button
+                    key={t.tamanho}
+                    type="button"
+                    onClick={() => setSelectedTamanho(t)}
+                    style={{
+                      padding: '0.25rem 0.65rem',
+                      borderRadius: '999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      border: isSelected ? '1.5px solid var(--primary-green)' : '1.5px solid var(--border-color)',
+                      backgroundColor: isSelected ? 'var(--primary-green)' : 'var(--cream-bg)',
+                      color: isSelected ? '#FFFFFF' : 'var(--chocolate-brown)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {t.tamanho}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div className="product-footer">
-          <span className="product-price">{formatPrice(product.preco)}</span>
+          <span className="product-price">{formatPrice(currentPrice)}</span>
           
           <button
             onClick={handleAddToCart}

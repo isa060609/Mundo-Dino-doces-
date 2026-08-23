@@ -22,9 +22,9 @@ const SLIDES = [
   {
     id: 3,
     categoryName: 'Vitaminas',
-    priceInfo: '200 ml — R$ 15,00',
-    description: 'Vitaminas cremosas e refrescantes de 200 ml, disponíveis nos sabores morango, maracujá e limão.',
-    image: '/vitaminas-banner.jpg',
+    priceInfo: '300 ml (R$ 15) | 500 ml (R$ 20)',
+    description: 'Batidas cremosas e refrescantes de 300 ml e 500 ml, disponíveis nos sabores morango, maracujá e limão.',
+    image: '/batida-dino.jpg',
     icon: CupSoda
   },
   {
