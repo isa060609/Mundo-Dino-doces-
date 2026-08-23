@@ -698,27 +698,40 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: #111111 !important;
 }
 
 .badge-bolos {
-  background-color: #FFF3E0;
-  color: #E65100;
-  border: 1px solid #FFE0B2;
+  background-color: #FFE0B2;
+  color: #111111 !important;
+  font-weight: 800;
+  border: 1px solid #FFCC80;
 }
 
 .badge-acai {
-  background-color: #F3E5F5;
-  color: #4A148C;
-  border: 1px solid #E1BEE7;
+  background-color: #E1BEE7;
+  color: #111111 !important;
+  font-weight: 800;
+  border: 1px solid #CE93D8;
 }
 
 .badge-vitaminas {
-  background-color: #E8F5E9;
-  color: #1B5E20;
-  border: 1px solid #C8E6C9;
+  background-color: #C8E6C9;
+  color: #111111 !important;
+  font-weight: 800;
+  border: 1px solid #A5D6A7;
+}
+
+[data-theme="dark"] .badge,
+[data-theme="dark"] .product-badge-abs,
+[data-theme="dark"] .badge-bolos,
+[data-theme="dark"] .badge-acai,
+[data-theme="dark"] .badge-vitaminas {
+  color: #111111 !important;
+  font-weight: 800;
 }
 
 /* ==========================================================================
