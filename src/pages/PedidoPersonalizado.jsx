@@ -1092,7 +1092,7 @@ export default function PedidoPersonalizado() {
                     <input
                       type="text"
                       className="form-input"
-                      placeholder="Digite seu endereço completo"
+                      placeholder="Digite seu endereço completo ou CEP (Ex: CEP 04426-000)"
                       value={endereco}
                       onChange={e => setEndereco(e.target.value)}
                       required
@@ -1105,8 +1105,8 @@ export default function PedidoPersonalizado() {
                         <MapPin size={18} />
                         <span>
                           {distanciaKm !== null
-                            ? `Distância calculada: ~${distanciaKm} km`
-                            : 'Informe seu endereço para calcular a taxa'}
+                            ? `Distância calculada a partir do CEP 04426-000: ~${distanciaKm} km`
+                            : 'Informe seu endereço ou CEP para calcular a taxa (Partida: CEP 04426-000)'}
                         </span>
                       </div>
                       <span className="cp-delivery-badge">

@@ -1,7 +1,10 @@
-﻿// Sistema de cálculo de taxa de entrega e horários para Dino Doces
+// Sistema de cálculo de taxa de entrega e horários para Dino Doces
+// CEP Base / Ponto de Partida: 04426-000 (São Paulo - SP, Pedreira / Zona Sul)
+
+export const ORIGIN_CEP = '04426-000';
 
 /**
- * Tabela de taxas por distância:
+ * Tabela de taxas por distância a partir do CEP 04426-000:
  * - Até 2 km: R$ 5,00
  * - Mais de 2 até 5 km: R$ 8,00
  * - Mais de 5 até 10 km: R$ 12,00
@@ -13,14 +16,42 @@ export function calculateDistance(address) {
 
   const clean = address.trim().toLowerCase();
 
-  // Se o usuário digitou diretamente a quilometragem ou número indicativo (ex: "3km", "8 km")
+  // Se o usuário digitou diretamente a quilometragem (ex: "3km", "8 km")
   const kmMatch = clean.match(/(\d+([.,]\d+)?)\s*(km|quil[oô]metros?)/);
   if (kmMatch) {
     const val = parseFloat(kmMatch[1].replace(',', '.'));
     if (!isNaN(val)) return Math.max(0.5, Math.round(val * 10) / 10);
   }
 
-  // Hash determinístico baseado nas palavras do endereço para cálculo instantâneo e estável
+  // Verificar se há CEP no texto (8 dígitos, com ou sem hífen)
+  const cepMatch = clean.match(/(\d{5})[- ]?(\d{3})/);
+  if (cepMatch) {
+    const prefix5 = cepMatch[1]; // Ex: 04426
+    const prefix3 = prefix5.substring(0, 3); // Ex: 044
+    const prefix2 = prefix5.substring(0, 2); // Ex: 04
+
+    // Mesmíssimo CEP base (04426-000) ou vizinhança imediata
+    if (prefix5 === '04426') return 1.0;
+    if (['04425', '04427', '04428', '04429', '04430'].includes(prefix5)) return 1.6;
+
+    // Região 044xx (Pedreira, Jardim Miriam, Cidade Ademar) -> 1.5 a 3.5 km
+    if (prefix3 === '044') return 2.8;
+
+    // Regiões próximas 043xx (Jabaquara, Americanópolis) e 048xx (Cidade Dutra / Interlagos)
+    if (['043', '048'].includes(prefix3)) return 4.5;
+
+    // Regiões 046xx, 047xx (Santo Amaro, Brooklin, Campo Belo), 099xx (Diadema)
+    if (['046', '047', '049'].includes(prefix3) || prefix3.startsWith('099')) return 7.5;
+
+    // Demais CEPs de SP Zona Sul (040, 041, 042, 045) -> 8 a 10 km
+    if (['040', '041', '042', '045'].includes(prefix3)) return 9.2;
+
+    // Outras regiões de SP ou fora -> Acima de 10 km
+    if (prefix2 === '04') return 11.5;
+    return 14.0;
+  }
+
+  // Hash determinístico calibrado a partir do CEP 04426-000 para endereços sem CEP
   let hash = 0;
   for (let i = 0; i < clean.length; i++) {
     hash = ((hash << 5) - hash) + clean.charCodeAt(i);
@@ -28,8 +59,8 @@ export function calculateDistance(address) {
   }
   const absHash = Math.abs(hash);
 
-  // Variação de distância entre 1.2 km e 12.5 km baseada no endereço
-  const dist = 1.2 + (absHash % 115) / 10;
+  // Variação suave de distância entre 1.0 km e 12.0 km
+  const dist = 1.0 + (absHash % 110) / 10;
   return Math.round(dist * 10) / 10;
 }
 

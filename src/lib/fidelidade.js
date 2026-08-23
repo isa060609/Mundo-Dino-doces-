@@ -24,9 +24,10 @@ export const RECOMPENSAS_DISPONIVEIS = [
   }
 ];
 
-// E-mails autorizados como Administrador / Lojista da Dino Doces (Apenas estes 2)
+// E-mails autorizados como Administrador / Lojista da Dino Doces (Apenas estes)
 export const ADMIN_EMAILS = [
   'isabellaribeiro418@gmail.com',
+  'isabellaribeiro418gmail.com',
   'pedrohenrique929@icloud.com'
 ];
 
