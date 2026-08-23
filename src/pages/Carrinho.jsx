@@ -298,7 +298,7 @@ export default function Carrinho() {
                     <input
                       type="text"
                       className="form-input"
-                      placeholder="Digite seu endereço completo ou CEP (Ex: CEP 04426-000)"
+                      placeholder="Digite seu endereço completo ou CEP"
                       value={endereco}
                       onChange={e => setEndereco(e.target.value)}
                       required
@@ -311,8 +311,8 @@ export default function Carrinho() {
                         <MapPin size={18} />
                         <span>
                           {distanciaKm !== null
-                            ? `Distância calculada a partir do CEP 04426-000: ~${distanciaKm} km`
-                            : 'Informe seu endereço ou CEP para calcular a taxa (Partida: CEP 04426-000)'}
+                            ? `Distância calculada: ~${distanciaKm} km`
+                            : 'Informe seu endereço ou CEP para calcular a taxa'}
                         </span>
                       </div>
                       <span className="cp-delivery-badge">
