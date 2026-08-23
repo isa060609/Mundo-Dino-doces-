@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingBag, User, LogOut, ChevronDown, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -37,8 +37,8 @@ export default function Header() {
 
         <nav className="nav-desktop">
           <ul className="nav-links">
-            <li><Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Inicio</Link></li>
-            <li><Link to="/produtos" className={`nav-link ${location.pathname === '/produtos' ? 'active' : ''}`}>Cardapio</Link></li>
+            <li><Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Início</Link></li>
+            <li><Link to="/produtos" className={`nav-link ${location.pathname === '/produtos' ? 'active' : ''}`}>Cardápio</Link></li>
             <li><Link to="/encomenda" className={`nav-link ${location.pathname === '/encomenda' || location.pathname === '/pedido-personalizado' ? 'active' : ''}`}>Personalizado</Link></li>
           </ul>
         </nav>
@@ -77,8 +77,8 @@ export default function Header() {
       </div>
 
       <nav className="mobile-pill-nav">
-        <Link to="/" className={`mobile-pill ${location.pathname === '/' ? 'active' : ''}`} onClick={closeMenus}>Inicio</Link>
-        <Link to="/produtos" className={`mobile-pill ${location.pathname === '/produtos' ? 'active' : ''}`} onClick={closeMenus}>Cardapio</Link>
+        <Link to="/" className={`mobile-pill ${location.pathname === '/' ? 'active' : ''}`} onClick={closeMenus}>Início</Link>
+        <Link to="/produtos" className={`mobile-pill ${location.pathname === '/produtos' ? 'active' : ''}`} onClick={closeMenus}>Cardápio</Link>
         <Link to="/encomenda" className={`mobile-pill ${location.pathname === '/encomenda' || location.pathname === '/pedido-personalizado' ? 'active' : ''}`} onClick={closeMenus}>Personalizado</Link>
       </nav>
     </header>
