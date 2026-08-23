@@ -372,6 +372,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: var(--primary-green);
   transition: transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.brand-logo span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .brand-logo:hover {
@@ -529,7 +536,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #FFEBEE;
 }
 
-/* Mobile Hamburger Button & Drawer */
+/* Mobile Hamburger Button — oculto (substituído pelas pílulas) */
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -537,6 +544,46 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--chocolate-brown);
   padding: 0.5rem;
 }
+
+/* ── Navegação Mobile: 3 Pílulas ── */
+.mobile-pill-nav {
+  display: none; /* oculto no desktop */
+}
+
+@media (max-width: 768px) {
+  .mobile-pill-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem 0.7rem;
+    background-color: var(--white);
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  .mobile-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--chocolate-brown);
+    background-color: var(--cream-bg);
+    border: 1.5px solid var(--border-color);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .mobile-pill.active,
+  .mobile-pill:hover {
+    background-color: var(--primary-green);
+    color: #fff;
+    border-color: var(--primary-green);
+  }
+}
+
 
 .mobile-drawer {
   position: fixed;
@@ -798,6 +845,29 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.25rem;
   border: 1px solid var(--border-color);
 }
+
+/* Badge "Confeitaria Artesanal Online" */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--white);
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-pill);
+  color: var(--chocolate-brown);
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 
 .hero-title {
   font-size: 3.25rem;
@@ -1686,7 +1756,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     gap: 2.5rem;
   }
-  
+
+  .hero-content {
+    align-items: center;
+  }
+
+  .hero-tag {
+    align-self: center;
+  }
+
   .hero-subtitle {
     margin-left: auto;
     margin-right: auto;
@@ -1701,13 +1779,34 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
 @media (max-width: 768px) {
-  .nav-links, .desktop-user-actions {
+  .nav-links, .desktop-user-actions, .nav-desktop {
     display: none;
   }
 
-  .mobile-menu-btn {
-    display: block;
+  .header-inner {
+    height: 64px;
+  }
+
+  /* Logo menor e em linha única no mobile */
+  .brand-logo {
+    font-size: 1rem;
+    gap: 0.4rem;
+  }
+
+  .brand-badge-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .brand-logo span {
+    font-size: 1rem;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .hero-title {
@@ -1727,6 +1826,8 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
   }
 }
+
+
 
 /* ==========================================================================
    Floating Contact Badges (Instagram & WhatsApp)

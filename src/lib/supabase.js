@@ -99,7 +99,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 15.00,
     categoria: 'vitaminas',
     tamanho: '200 ml',
-    imagem: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=600&q=80',
+    imagem: '/batida-dino.jpg',
     disponivel: true
   },
   {
@@ -109,7 +109,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 15.00,
     categoria: 'vitaminas',
     tamanho: '200 ml',
-    imagem: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=600&q=80',
+    imagem: '/batida-dino.jpg',
     disponivel: true
   },
   {
@@ -119,7 +119,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 15.00,
     categoria: 'vitaminas',
     tamanho: '200 ml',
-    imagem: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80',
+    imagem: '/batida-dino.jpg',
     disponivel: true
   }
 ];

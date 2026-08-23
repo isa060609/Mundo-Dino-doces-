@@ -103,16 +103,19 @@ const COMPLEMENTOS_ACAI = ['Leite em pó', 'Paçoca', 'Creme de avelã'];
 const BATIDA_CARDS = [
   {
     icon: PlusCircle,
+    image: '/batida-dino.jpg',
     title: 'Escolha o tamanho',
     desc: 'Opções de 300 ml e 500 ml preparadas na hora.'
   },
   {
     icon: Apple,
+    image: '/batida-dino.jpg',
     title: 'Escolha o sabor',
     desc: 'Sabores naturais de morango, maracujá e limão.'
   },
   {
     icon: Layers,
+    image: '/batida-dino.jpg',
     title: 'Escolha o acompanhamento',
     desc: 'Geleias artesanais ou leite condensado cremoso.'
   }
@@ -906,6 +909,27 @@ export default function PedidoPersonalizado() {
                       tabIndex={0}
                       style={{ cursor: 'pointer' }}
                     >
+                      {/* Imagem da Batida */}
+                      {ideia.image && (
+                        <div style={{
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          marginBottom: '0.75rem',
+                          height: '160px',
+                          width: '100%'
+                        }}>
+                          <img
+                            src={ideia.image}
+                            alt="Batida"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              display: 'block'
+                            }}
+                          />
+                        </div>
+                      )}
                       <div className="custom-idea-icon">
                         <IconComp size={20} />
                       </div>
