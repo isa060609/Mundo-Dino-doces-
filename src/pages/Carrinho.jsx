@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Trash2, Plus, Minus, ShoppingBag, ArrowRight, CheckCircle2,
+  Trash2, Plus, Minus, ShoppingBag, ArrowRight, ArrowLeft, CheckCircle2,
   AlertCircle, MapPin, Clock, Calendar
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -194,11 +194,25 @@ export default function Carrinho() {
   return (
     <div>
       <div className="page-header-banner">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h1 className="section-title">Carrinho de Compras</h1>
-          <p className="section-subtitle">
-            Revise seus itens e escolha o melhor momento para saborear.
-          </p>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '1.25rem' }}>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="btn-back-action"
+              title="Voltar à página inicial"
+            >
+              <ArrowLeft size={18} />
+              <span>Voltar ao Início</span>
+            </button>
+          </div>
+
+          <div style={{ textAlign: 'center' }}>
+            <h1 className="section-title">Carrinho de Compras</h1>
+            <p className="section-subtitle">
+              Revise seus itens e escolha o melhor momento para saborear.
+            </p>
+          </div>
         </div>
       </div>
 

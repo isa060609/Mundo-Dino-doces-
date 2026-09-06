@@ -1553,8 +1553,47 @@ h1, h2, h3, h4, h5, h6 {
 .page-header-banner {
   background: linear-gradient(135deg, #FFFFFF 0%, #F4FBF4 45%, #DCFCE7 100%);
   border-bottom: 1px solid var(--border-color);
-  padding: 3rem 0;
+  padding: 2.25rem 0 3rem;
   margin-bottom: 3rem;
+}
+
+/* Botão Voltar (1x itens/filtros, 2x Início) */
+.btn-back-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: 9999px;
+  background-color: var(--white);
+  color: var(--chocolate-brown);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-back-action:hover {
+  background-color: var(--cream-bg);
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 10px rgba(30, 81, 40, 0.15);
+}
+
+[data-theme="dark"] .btn-back-action {
+  background-color: #1a2e1d;
+  color: #E8F5E9;
+  border-color: #2e4d33;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .btn-back-action:hover {
+  background-color: #26432b;
+  border-color: #4E9F3D;
+  color: #4E9F3D;
 }
 
 .orders-list {

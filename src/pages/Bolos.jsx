@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { fetchProdutos } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 
 export default function Bolos() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadData() {
@@ -23,11 +26,25 @@ export default function Bolos() {
   return (
     <div>
       <div className="page-header-banner">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h1 className="section-title">Bolos no Pote</h1>
-          <p className="section-subtitle">
-            Deliciosos sabores para adoçar seu dia — R$ 12,00 cada
-          </p>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '1.25rem' }}>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="btn-back-action"
+              title="Voltar à página inicial"
+            >
+              <ArrowLeft size={18} />
+              <span>Voltar ao Início</span>
+            </button>
+          </div>
+
+          <div style={{ textAlign: 'center' }}>
+            <h1 className="section-title">Bolos no Pote</h1>
+            <p className="section-subtitle">
+              Deliciosos sabores para adoçar seu dia — R$ 12,00 cada
+            </p>
+          </div>
         </div>
       </div>
 

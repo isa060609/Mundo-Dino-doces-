@@ -367,6 +367,46 @@ export default function PedidoPersonalizado() {
     setItensPedido(prev => prev.filter(item => item.id !== id));
   };
 
+  /* ── Lógica do Botão Voltar (1º clique: desfaz seleção/itens | 2º clique: vai para a Página Inicial) ── */
+  const handleVoltar = () => {
+    const hasActivePanel = activeBoloCard !== null || activeAcaiCard !== null || activeBatidaCard !== null;
+    const hasCustomSelections = canAddItem;
+    const hasItemsInOrder = itensPedido.length > 0;
+
+    if (hasActivePanel) {
+      setActiveBoloCard(null);
+      setActiveAcaiCard(null);
+      setActiveBatidaCard(null);
+      return;
+    }
+
+    if (hasCustomSelections) {
+      setMassaBolo('');
+      setRecheioBolo('');
+      setFrutasBolo([]);
+      setDescBoloCustom('');
+      setTamanhoBolo(null);
+      setIntensidadeBolo('');
+      setCaldaBolo('');
+      setEncomendaBolo('');
+      setTamanhoAcai(null);
+      setFrutasAcai([]);
+      setCaldaAcai('');
+      setComplementosAcai([]);
+      setTamanhoBatida(null);
+      setSaborBatida('');
+      setAcompBatida('');
+      return;
+    }
+
+    if (hasItemsInOrder) {
+      setItensPedido(prev => prev.slice(0, -1));
+      return;
+    }
+
+    navigate('/');
+  };
+
   /* ── Subtotal de Todos os Itens do Pedido ── */
   const subtotalGeral = useMemo(() => {
     let sum = 0;
@@ -755,15 +795,33 @@ export default function PedidoPersonalizado() {
     <div>
       {/* Banner */}
       <div className="page-header-banner">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div className="page-header-tag">
-            <Sparkles size={16} />
-            <span>Faça seu pedido sob medida</span>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '1.25rem' }}>
+            <button
+              type="button"
+              onClick={handleVoltar}
+              className="btn-back-action"
+              title="Clique 1 vez para voltar os itens/seleções e 2 vezes para a página inicial"
+            >
+              <ArrowLeft size={18} />
+              <span>
+                {(activeBoloCard !== null || activeAcaiCard !== null || activeBatidaCard !== null || canAddItem || itensPedido.length > 0)
+                  ? 'Voltar itens'
+                  : 'Voltar ao Início'}
+              </span>
+            </button>
           </div>
-          <h1 className="section-title">Pedido Personalizado</h1>
-          <p className="section-subtitle">
-            Escolha bolos, açaí ou batidas, combine sabores e monte o pedido perfeito.
-          </p>
+
+          <div style={{ textAlign: 'center' }}>
+            <div className="page-header-tag">
+              <Sparkles size={16} />
+              <span>Faça seu pedido sob medida</span>
+            </div>
+            <h1 className="section-title">Pedido Personalizado</h1>
+            <p className="section-subtitle">
+              Escolha bolos, açaí ou batidas, combine sabores e monte o pedido perfeito.
+            </p>
+          </div>
         </div>
       </div>
 
