@@ -57,7 +57,10 @@ export default function ProductCard({ product }) {
     }
   };
 
-  const getCategoryName = (cat) => {
+  const getCategoryName = (cat, nome) => {
+    if (nome && nome.toLowerCase().includes('brownie')) {
+      return 'Brownie';
+    }
     switch (cat) {
       case 'bolos': return 'Bolo no pote';
       case 'acai': return 'Açaí';
@@ -99,7 +102,7 @@ export default function ProductCard({ product }) {
         </div>
 
         <span className={`badge ${renderBadgeClass(product.categoria)} product-badge-abs`}>
-          {getCategoryName(product.categoria)}
+          {getCategoryName(product.categoria, product.nome)}
         </span>
       </div>
 
