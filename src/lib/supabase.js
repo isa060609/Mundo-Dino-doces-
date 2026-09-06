@@ -63,6 +63,16 @@ export const OFFICIAL_PRODUCTS = [
     imagem: '/bolo-baunilha-chocolate.jpg',
     disponivel: true
   },
+  {
+    id: 'bolo-6',
+    nome: 'Prestígio',
+    descricao: 'Bolo fofinho de chocolate com recheio cremoso de coco artesanal e cobertura irresistível de chocolate.',
+    preco: 12.00,
+    categoria: 'bolos',
+    tamanho: null,
+    imagem: '/bolos-dino.jpg',
+    disponivel: true
+  },
 
   // AÇAÍ (500 ml — R$ 20,00)
   {

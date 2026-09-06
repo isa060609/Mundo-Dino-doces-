@@ -97,12 +97,13 @@ WITH CHECK (auth.uid() = cliente_id);
 -- ============================================================================
 
 INSERT INTO public.produtos (nome, descricao, preco, categoria, tamanho, imagem, disponivel) VALUES
--- BOLOS NO POTE (R$ 12,00)
-('Chocolate com Brigadeiro', 'Bolo fofinho de chocolate com camadas generosas de brigadeiro artesanal gourmet.', 12.00, 'bolos', NULL, 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80', TRUE),
-('Chocolate com Maracujá', 'Combinação perfeita do doce de chocolate com o contraste refrescante de creme de maracujá.', 12.00, 'bolos', NULL, 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=600&q=80', TRUE),
-('Baunilha com Brigadeiro de Leite e Morango', 'Massa suave de baunilha, recheada com brigadeiro de leite cremoso e pedaços de morango.', 12.00, 'bolos', NULL, 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80', TRUE),
-('Baunilha com Oreo', 'Deliciosa mistura de massa de baunilha com recheio cremoso e pedaços crocantes de biscoito Oreo.', 12.00, 'bolos', NULL, 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=600&q=80', TRUE),
-('Baunilha com Chocolate', 'Clássico insuperável de bolo de baunilha leve com cobertura aveludada de chocolate.', 12.00, 'bolos', NULL, 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=600&q=80', TRUE),
+-- BOLOS NO POTE & BROWNIES (R$ 12,00)
+('Chocolate com Brigadeiro', 'Bolo fofinho de chocolate com camadas generosas de brigadeiro artesanal gourmet.', 12.00, 'bolos', NULL, '/bolo-chocolate-brigadeiro.jpg', TRUE),
+('Chocolate com Maracujá', 'Combinação perfeita do doce de chocolate com o contraste refrescante de creme de maracujá.', 12.00, 'bolos', NULL, '/bolo-chocolate-maracuja.jpg', TRUE),
+('Baunilha com Brigadeiro de Leite e Morango', 'Massa suave de baunilha, recheada com brigadeiro de leite cremoso e pedaços de morango.', 12.00, 'bolos', NULL, '/bolo-brigadeiro-leite-morango.jpg', TRUE),
+('Brownie', 'Brownie artesanal macio e úmido por dentro com casquinha crocante. Opção com ou sem cobertura de avelã ou chocolate!', 12.00, 'bolos', NULL, '/brownie.jpg', TRUE),
+('Baunilha com Chocolate', 'Clássico insuperável de bolo de baunilha leve com cobertura aveludada de chocolate.', 12.00, 'bolos', NULL, '/bolo-baunilha-chocolate.jpg', TRUE),
+('Prestígio', 'Bolo fofinho de chocolate com recheio cremoso de coco artesanal e cobertura irresistível de chocolate.', 12.00, 'bolos', NULL, '/bolos-dino.jpg', TRUE),
 
 -- AÇAÍ (500 ml — R$ 20,00)
 ('Açaí com Banana', 'Garrafa de 500 ml com açaí super cremoso batido com banana selecionada.', 20.00, 'acai', '500 ml', '/acai-dino.jpg', TRUE),
