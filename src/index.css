@@ -859,6 +859,67 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-color);
 }
 
+/* Balões Clicáveis no Hero (Início, Cardápio, Personalizado) */
+.hero-balloons-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.hero-balloon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--chocolate-brown);
+  background-color: var(--white);
+  border: 1.5px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(93, 64, 55, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.hero-balloon-pill:hover {
+  background-color: var(--primary-green-light);
+  color: var(--primary-green);
+  border-color: var(--primary-green-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.18);
+}
+
+.hero-balloon-pill.active {
+  background-color: var(--primary-green);
+  color: #FFFFFF !important;
+  border-color: var(--primary-green-dark);
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+}
+
+[data-theme="dark"] .hero-balloon-pill {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+  border-color: #333333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .hero-balloon-pill:hover {
+  background-color: #1B3A1D;
+  color: #66BB6A;
+  border-color: #66BB6A;
+}
+
+[data-theme="dark"] .hero-balloon-pill.active {
+  background-color: #2E7D32;
+  color: #FFFFFF !important;
+  border-color: #66BB6A;
+}
+
 /* Badge "Confeitaria Artesanal Online" */
 .hero-tag {
   display: inline-flex;
@@ -1772,6 +1833,11 @@ h1, h2, h3, h4, h5, h6 {
 
   .hero-content {
     align-items: center;
+  }
+
+  .hero-balloons-nav {
+    justify-content: center;
+    align-self: center;
   }
 
   .hero-tag {
