@@ -15,7 +15,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolos-dino.jpg',
+    imagem: '/bolo-chocolate-brigadeiro.jpg',
     disponivel: true
   },
   {
@@ -25,7 +25,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolos-dino.jpg',
+    imagem: '/bolo-chocolate-maracuja.jpg',
     disponivel: true
   },
   {
@@ -55,7 +55,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolos-dino.jpg',
+    imagem: '/bolo-baunilha-chocolate.jpg',
     disponivel: true
   },
 
