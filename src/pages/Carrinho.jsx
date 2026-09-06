@@ -31,6 +31,7 @@ export default function Carrinho() {
   const [submitting, setSubmitting]   = useState(false);
   const [success, setSuccess]         = useState(false);
   const [error, setError]             = useState(null);
+  const [pixCopiado, setPixCopiado]   = useState(null);
   const [lastOrderWhatsAppUrl, setLastOrderWhatsAppUrl]   = useState('');
   const [lastOrderWhatsAppUrl2, setLastOrderWhatsAppUrl2] = useState('');
 
@@ -153,10 +154,14 @@ export default function Carrinho() {
       }).join('\n');
 
       const paymentSummary = formaPagamento === 'Pix'
-        ? '📱 Pix'
+        ? '📱 Pix (Chaves: 11913395183 / 11986341914)'
         : (formaPagamento === 'Cartão'
             ? '💳 Cartão (Pessoalmente)'
             : `💵 Dinheiro (Pessoalmente)${precisaTroco === 'sim' && valorTrocoPara.trim() ? ` (Troco para ${valorTrocoPara.trim()})` : (precisaTroco === 'nao' ? ' (Sem troco)' : '')}`);
+
+      const pixDetailsText = formaPagamento === 'Pix'
+        ? `\n📱 *Chaves Pix para Pagamento (Telefone):*\n• (11) 91339-5183\n• (11) 98634-1914\n`
+        : '';
 
       const waMsg = `🧁 *NOVO PEDIDO - MUNDO DINO DOCES* 🦖\n\n` +
         `👤 *Cliente:* ${nome.trim()}\n` +
@@ -165,7 +170,8 @@ export default function Carrinho() {
         (distanciaKm ? `📏 *Distância Calculada:* ~${distanciaKm.toFixed(1)} km\n` : '') +
         `📅 *Data Desejada:* ${dataDesejada}\n` +
         `⏰ *Horário Desejado:* ${horarioDesejado}\n` +
-        `💳 *Forma de Pagamento:* ${paymentSummary}\n\n` +
+        `💳 *Forma de Pagamento:* ${paymentSummary}\n` +
+        pixDetailsText + `\n` +
         `📋 *ITENS DO PEDIDO:*\n${itensTexto}\n\n` +
         `💵 *Subtotal:* ${formatPrice(cartTotal)}\n` +
         `🛵 *Taxa de Entrega:* ${deliveryInfo.label}\n` +
@@ -206,10 +212,58 @@ export default function Carrinho() {
             Pedido realizado com sucesso!
           </h2>
           <p className="empty-state-text order-success-text">
-            Seu pedido foi registrado no sistema e enviado diretamente para o nosso WhatsApp!
+            Seu pedido foi registrado no sistema! Por favor, envie a confirmação para os nossos <strong>dois números</strong> de WhatsApp:
           </p>
 
-          {/* Bloco de Notificação / Botão do WhatsApp */}
+          {/* Bloco de Chaves Pix na Confirmação */}
+          {formaPagamento === 'Pix' && (
+            <div style={{
+              backgroundColor: '#F1F8E9',
+              border: '1.5px solid #81C784',
+              borderRadius: '14px',
+              padding: '1.25rem',
+              maxWidth: '520px',
+              margin: '1.25rem auto',
+              textAlign: 'left'
+            }}>
+              <p style={{ fontWeight: 700, color: '#2E7D32', marginBottom: '0.65rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <QrCode size={18} />
+                <span>Chaves Pix para Pagamento (Celular):</span>
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
+                  <span style={{ fontSize: '0.9rem', color: '#1B5E20' }}>📱 <strong>(11) 91339-5183</strong> (Atendimento 1)</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('11913395183');
+                      setPixCopiado('11913395183');
+                      setTimeout(() => setPixCopiado(null), 2000);
+                    }}
+                    style={{ fontSize: '0.78rem', padding: '0.25rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid #2E7D32', background: pixCopiado === '11913395183' ? '#2E7D32' : '#FFF', color: pixCopiado === '11913395183' ? '#FFF' : '#2E7D32', fontWeight: 600 }}
+                  >
+                    {pixCopiado === '11913395183' ? 'Copiado! ✓' : 'Copiar'}
+                  </button>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
+                  <span style={{ fontSize: '0.9rem', color: '#1B5E20' }}>📱 <strong>(11) 98634-1914</strong> (Atendimento 2)</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('11986341914');
+                      setPixCopiado('11986341914');
+                      setTimeout(() => setPixCopiado(null), 2000);
+                    }}
+                    style={{ fontSize: '0.78rem', padding: '0.25rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid #2E7D32', background: pixCopiado === '11986341914' ? '#2E7D32' : '#FFF', color: pixCopiado === '11986341914' ? '#FFF' : '#2E7D32', fontWeight: 600 }}
+                  >
+                    {pixCopiado === '11986341914' ? 'Copiado! ✓' : 'Copiar'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Bloco de Notificação / Botão do WhatsApp para ambos os números */}
           <div style={{
             backgroundColor: 'var(--cream-bg)',
             border: '1.5px solid #25D366',
@@ -223,10 +277,10 @@ export default function Carrinho() {
           }}>
             <p style={{ fontWeight: 700, color: 'var(--chocolate-brown)', marginBottom: '0.5rem', fontSize: '1.05rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
               <MessageCircle size={22} color="#25D366" />
-              <span>Pedido pronto para o WhatsApp</span>
+              <span>Envie para os nossos dois números</span>
             </p>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: 1.4 }}>
-              Se a conversa do WhatsApp não tiver aberto automaticamente, clique em um dos botões abaixo para enviar a mensagem:
+              Clique nos botões abaixo para enviar a mensagem do pedido para a nossa equipe:
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'center' }}>
               {lastOrderWhatsAppUrl && (
@@ -242,18 +296,18 @@ export default function Carrinho() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.6rem',
-                    padding: '0.75rem 1.5rem',
+                    padding: '0.8rem 1.5rem',
                     borderRadius: '999px',
                     textDecoration: 'none',
                     fontSize: '0.95rem',
                     boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)',
                     width: '100%',
-                    maxWidth: '340px',
+                    maxWidth: '380px',
                     justifyContent: 'center'
                   }}
                 >
                   <MessageCircle size={20} />
-                  <span>Enviar no WhatsApp (11) 91339-5183</span>
+                  <span>📲 1. Enviar para Atendimento 1 (11) 91339-5183</span>
                 </a>
               )}
               {lastOrderWhatsAppUrl2 && (
@@ -265,21 +319,22 @@ export default function Carrinho() {
                   style={{
                     backgroundColor: '#128C7E',
                     color: '#FFFFFF',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.6rem',
-                    padding: '0.6rem 1.25rem',
+                    padding: '0.8rem 1.5rem',
                     borderRadius: '999px',
                     textDecoration: 'none',
-                    fontSize: '0.85rem',
+                    fontSize: '0.95rem',
+                    boxShadow: '0 4px 12px rgba(18, 140, 126, 0.35)',
                     width: '100%',
-                    maxWidth: '340px',
+                    maxWidth: '380px',
                     justifyContent: 'center'
                   }}
                 >
-                  <MessageCircle size={18} />
-                  <span>Enviar p/ Atendimento (11) 98634-1914</span>
+                  <MessageCircle size={20} />
+                  <span>📲 2. Enviar para Atendimento 2 (11) 98634-1914</span>
                 </a>
               )}
             </div>
@@ -562,9 +617,44 @@ export default function Carrinho() {
                   </div>
 
                   {formaPagamento === 'Pix' && (
-                    <div style={{ backgroundColor: 'var(--cream-bg)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '0.75rem 1rem', fontSize: '0.85rem', color: 'var(--chocolate-brown)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                      <QrCode size={18} color="var(--primary-green)" />
-                      <span>Pagamento via <strong>Pix</strong>: a chave será enviada no WhatsApp para transferência rápida.</span>
+                    <div style={{ backgroundColor: 'var(--cream-bg)', border: '1.5px solid var(--primary-green)', borderRadius: '12px', padding: '1rem', fontSize: '0.88rem', color: 'var(--chocolate-brown)', marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem', fontWeight: 700, color: 'var(--primary-green)' }}>
+                        <QrCode size={18} />
+                        <span>Chaves Pix para Pagamento (Celular):</span>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.45rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                          <span style={{ fontSize: '0.88rem' }}>📱 <strong>(11) 91339-5183</strong> (Atendimento 1)</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText('11913395183');
+                              setPixCopiado('11913395183');
+                              setTimeout(() => setPixCopiado(null), 2000);
+                            }}
+                            style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11913395183' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11913395183' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 600 }}
+                          >
+                            {pixCopiado === '11913395183' ? 'Copiado! ✓' : 'Copiar Pix'}
+                          </button>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.45rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                          <span style={{ fontSize: '0.88rem' }}>📱 <strong>(11) 98634-1914</strong> (Atendimento 2)</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText('11986341914');
+                              setPixCopiado('11986341914');
+                              setTimeout(() => setPixCopiado(null), 2000);
+                            }}
+                            style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11986341914' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11986341914' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 600 }}
+                          >
+                            {pixCopiado === '11986341914' ? 'Copiado! ✓' : 'Copiar Pix'}
+                          </button>
+                        </div>
+                      </div>
+                      <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.5rem', marginBottom: 0 }}>
+                        Transfira por qualquer uma das duas chaves e envie o comprovante no WhatsApp.
+                      </p>
                     </div>
                   )}
 
