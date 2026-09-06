@@ -21,13 +21,13 @@ const CATEGORIAS = [
 const BOLO_CARDS = [
   {
     icon: Shuffle,
-    title: 'Escolha a massa / Brownie',
-    desc: 'Selecione chocolate, baunilha ou brownie com opções de cobertura.'
+    title: 'Escolha a massa',
+    desc: 'Selecione chocolate, baunilha ou brownie artesanal.'
   },
   {
     icon: Layers,
-    title: 'Escolher outro recheio',
-    desc: 'Peça recheios especiais como brigadeiro gourmet, ninho com nutella e mais.'
+    title: 'Escolher outro recheio / cobertura',
+    desc: 'Escolha o recheio e a opção de cobertura de avelã ou chocolate.'
   },
   {
     icon: Apple,
@@ -613,6 +613,19 @@ export default function PedidoPersonalizado() {
             ))}
           </OptionsWrap>
         </div>
+      </div>
+    );
+
+    if (idx === 1) return (
+      <div className="cp-panel">
+        <div>
+          <p className="cp-panel-label">Escolha o recheio</p>
+          <OptionsWrap>
+            {RECHEIOS_BOLO.map(r => (
+              <OptionBtn key={r} selected={recheioBolo === r} onClick={() => setRecheioBolo(r)}>{r}</OptionBtn>
+            ))}
+          </OptionsWrap>
+        </div>
         <div style={{ marginTop: '1.25rem' }}>
           <p className="cp-panel-label">Opção de Cobertura (Brownie ou Bolo)</p>
           <OptionsWrap>
@@ -621,17 +634,6 @@ export default function PedidoPersonalizado() {
             ))}
           </OptionsWrap>
         </div>
-      </div>
-    );
-
-    if (idx === 1) return (
-      <div className="cp-panel">
-        <p className="cp-panel-label">Escolha o recheio</p>
-        <OptionsWrap>
-          {RECHEIOS_BOLO.map(r => (
-            <OptionBtn key={r} selected={recheioBolo === r} onClick={() => setRecheioBolo(r)}>{r}</OptionBtn>
-          ))}
-        </OptionsWrap>
       </div>
     );
 
