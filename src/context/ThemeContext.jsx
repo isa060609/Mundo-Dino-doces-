@@ -4,17 +4,25 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('dino_doces_theme');
-    return saved || 'light';
+    try {
+      const saved = localStorage.getItem('dino_doces_theme_pref');
+      if (saved === 'light' || saved === 'dark') {
+        return saved;
+      }
+    } catch (e) {}
+    // Padrão do site é modo escuro (dark)
+    return 'dark';
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('dino_doces_theme', theme);
+    try {
+      localStorage.setItem('dino_doces_theme_pref', theme);
+    } catch (e) {}
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
