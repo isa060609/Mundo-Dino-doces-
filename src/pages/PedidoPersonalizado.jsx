@@ -63,6 +63,7 @@ const TAMANHOS_BOLO     = [
 const INTENSIDADES_BOLO = ['Menos doce', 'Normal', 'Mais doce'];
 const CALDAS_BOLO       = ['Pouca calda', 'Calda normal', 'Muita calda'];
 const ENCOMENDAS_BOLO   = [
+  '🍫 Brownie recheado',
   '🍬 Docinhos de festa',
   '🎂 Bolo de aniversário',
   '🧁 Cupcakes',

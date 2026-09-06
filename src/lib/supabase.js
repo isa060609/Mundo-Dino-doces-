@@ -40,8 +40,8 @@ export const OFFICIAL_PRODUCTS = [
   },
   {
     id: 'bolo-4',
-    nome: 'Baunilha com Oreo',
-    descricao: 'Deliciosa mistura de massa de baunilha com recheio cremoso e pedaços crocantes de biscoito Oreo.',
+    nome: 'Brownie',
+    descricao: 'Brownie artesanal macio e úmido por dentro, casquinha crocante e sabor irresistível de chocolate nobre.',
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
