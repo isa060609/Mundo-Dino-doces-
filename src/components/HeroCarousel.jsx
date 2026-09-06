@@ -38,10 +38,10 @@ const SLIDES = [
 ];
 
 export default function HeroCarousel() {
+  const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
-  const location = useLocation();
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
@@ -71,27 +71,18 @@ export default function HeroCarousel() {
         <div className="hero-grid">
           {/* Lado Esquerdo: Textos Fixos em todos os slides */}
           <div className="hero-content">
-            {/* 3 Balões Clicáveis: Início, Cardápio e Personalizado */}
-            <nav className="hero-balloons-nav" aria-label="Navegação rápida">
-              <Link
-                to="/"
-                className={`hero-balloon-pill ${location.pathname === '/' ? 'active' : ''}`}
-              >
+            {/* 3 Balões de navegação apenas para celular acima de Confeitaria Artesanal Online */}
+            <div className="mobile-hero-nav">
+              <Link to="/" className={`hero-nav-pill ${location.pathname === '/' ? 'active' : ''}`}>
                 Início
               </Link>
-              <Link
-                to="/produtos"
-                className={`hero-balloon-pill ${location.pathname === '/produtos' ? 'active' : ''}`}
-              >
+              <Link to="/produtos" className={`hero-nav-pill ${location.pathname === '/produtos' ? 'active' : ''}`}>
                 Cardápio
               </Link>
-              <Link
-                to="/encomenda"
-                className={`hero-balloon-pill ${location.pathname === '/encomenda' || location.pathname === '/pedido-personalizado' ? 'active' : ''}`}
-              >
+              <Link to="/encomenda" className={`hero-nav-pill ${location.pathname === '/encomenda' || location.pathname === '/pedido-personalizado' ? 'active' : ''}`}>
                 Personalizado
               </Link>
-            </nav>
+            </div>
 
             <div className="hero-tag">
               <Sparkles size={16} />

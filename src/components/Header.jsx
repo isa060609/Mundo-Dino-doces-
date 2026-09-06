@@ -75,12 +75,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
-      <nav className="mobile-pill-nav">
-        <Link to="/" className={`mobile-pill ${location.pathname === '/' ? 'active' : ''}`} onClick={closeMenus}>Início</Link>
-        <Link to="/produtos" className={`mobile-pill ${location.pathname === '/produtos' ? 'active' : ''}`} onClick={closeMenus}>Cardápio</Link>
-        <Link to="/encomenda" className={`mobile-pill ${location.pathname === '/encomenda' || location.pathname === '/pedido-personalizado' ? 'active' : ''}`} onClick={closeMenus}>Personalizado</Link>
-      </nav>
     </header>
   );
 }
