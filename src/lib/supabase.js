@@ -35,7 +35,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolos-dino.jpg',
+    imagem: '/bolo-brigadeiro-leite-morango.jpg',
     disponivel: true
   },
   {
