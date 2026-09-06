@@ -38,7 +38,7 @@ export default function FloatingContact() {
                 <Phone size={16} />
               </div>
               <div className="number-info">
-                <span className="number-label">Atendimento 1</span>
+                <span className="number-label">Isabella Emanuelle</span>
                 <span className="number-val">(11) 91339-5183</span>
               </div>
               <ExternalLink size={16} className="wa-card-arrow" />
@@ -54,7 +54,7 @@ export default function FloatingContact() {
                 <Phone size={16} />
               </div>
               <div className="number-info">
-                <span className="number-label">Atendimento 2</span>
+                <span className="number-label">Pedro Henrique</span>
                 <span className="number-val">(11) 98634-1914</span>
               </div>
               <ExternalLink size={16} className="wa-card-arrow" />

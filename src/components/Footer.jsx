@@ -45,7 +45,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="footer-link"
                 >
-                  WhatsApp: (11) 91339-5183
+                  WhatsApp: (11) 91339-5183 (Isabella Emanuelle)
                 </a>
               </li>
               <li>
@@ -55,7 +55,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="footer-link"
                 >
-                  WhatsApp: (11) 98634-1914
+                  WhatsApp: (11) 98634-1914 (Pedro Henrique)
                 </a>
               </li>
             </ul>

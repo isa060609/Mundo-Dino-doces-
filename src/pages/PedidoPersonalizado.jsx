@@ -587,7 +587,7 @@ export default function PedidoPersonalizado() {
             : `💵 Dinheiro (Pessoalmente)${precisaTroco === 'sim' && valorTrocoPara.trim() ? ` (Troco para ${valorTrocoPara.trim()})` : (precisaTroco === 'nao' ? ' (Sem troco)' : '')}`);
 
       const pixDetailsText = formaPagamento === 'Pix'
-        ? `\n📱 *Chaves Pix para Pagamento (Telefone):*\n• (11) 91339-5183\n• (11) 98634-1914\n`
+        ? `\n📱 *Chaves Pix para Pagamento (Telefone):*\n• (11) 91339-5183 - Isabella Emanuelle\n• (11) 98634-1914 - Pedro Henrique\n`
         : '';
 
       const waMsg = `🧁 *NOVO PEDIDO PERSONALIZADO - MUNDO DINO DOCES* 🦖\n\n` +
@@ -658,8 +658,10 @@ export default function PedidoPersonalizado() {
                 <span>Chaves Pix para Pagamento (Celular):</span>
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#1B5E20' }}>📱 <strong>(11) 91339-5183</strong> (Atendimento 1)</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.55rem 0.85rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
+                  <span style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 700 }}>
+                    📱 (11) 91339-5183 <span style={{ fontWeight: 500, color: '#222222' }}>— Isabella Emanuelle</span>
+                  </span>
                   <button
                     type="button"
                     onClick={() => {
@@ -672,8 +674,10 @@ export default function PedidoPersonalizado() {
                     {pixCopiado === '11913395183' ? 'Copiado! ✓' : 'Copiar'}
                   </button>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#1B5E20' }}>📱 <strong>(11) 98634-1914</strong> (Atendimento 2)</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.55rem 0.85rem', borderRadius: '8px', border: '1px solid #C8E6C9' }}>
+                  <span style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 700 }}>
+                    📱 (11) 98634-1914 <span style={{ fontWeight: 500, color: '#222222' }}>— Pedro Henrique</span>
+                  </span>
                   <button
                     type="button"
                     onClick={() => {
@@ -729,12 +733,12 @@ export default function PedidoPersonalizado() {
                     fontSize: '0.95rem',
                     boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)',
                     width: '100%',
-                    maxWidth: '380px',
+                    maxWidth: '420px',
                     justifyContent: 'center'
                   }}
                 >
                   <MessageCircle size={20} />
-                  <span>📲 1. Enviar para Atendimento 1 (11) 91339-5183</span>
+                  <span>📲 1. Enviar p/ Isabella Emanuelle (11) 91339-5183</span>
                 </a>
               )}
               {lastOrderWhatsAppUrl2 && (
@@ -756,12 +760,12 @@ export default function PedidoPersonalizado() {
                     fontSize: '0.95rem',
                     boxShadow: '0 4px 12px rgba(18, 140, 126, 0.35)',
                     width: '100%',
-                    maxWidth: '380px',
+                    maxWidth: '420px',
                     justifyContent: 'center'
                   }}
                 >
                   <MessageCircle size={20} />
-                  <span>📲 2. Enviar para Atendimento 2 (11) 98634-1914</span>
+                  <span>📲 2. Enviar p/ Pedro Henrique (11) 98634-1914</span>
                 </a>
               )}
             </div>
@@ -1501,8 +1505,10 @@ export default function PedidoPersonalizado() {
                     <span>Chaves Pix para Pagamento (Celular):</span>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.45rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                      <span style={{ fontSize: '0.88rem' }}>📱 <strong>(11) 91339-5183</strong> (Atendimento 1)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.55rem 0.85rem', borderRadius: '8px', border: '1px solid #D0D0D0' }}>
+                      <span style={{ fontSize: '0.88rem', color: '#000000', fontWeight: 700 }}>
+                        📱 (11) 91339-5183 <span style={{ fontWeight: 500, color: '#222222' }}>— Isabella Emanuelle</span>
+                      </span>
                       <button
                         type="button"
                         onClick={() => {
@@ -1510,13 +1516,15 @@ export default function PedidoPersonalizado() {
                           setPixCopiado('11913395183');
                           setTimeout(() => setPixCopiado(null), 2000);
                         }}
-                        style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11913395183' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11913395183' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 600 }}
+                        style={{ fontSize: '0.75rem', padding: '0.25rem 0.65rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11913395183' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11913395183' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 700 }}
                       >
                         {pixCopiado === '11913395183' ? 'Copiado! ✓' : 'Copiar Pix'}
                       </button>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.45rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                      <span style={{ fontSize: '0.88rem' }}>📱 <strong>(11) 98634-1914</strong> (Atendimento 2)</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: '0.55rem 0.85rem', borderRadius: '8px', border: '1px solid #D0D0D0' }}>
+                      <span style={{ fontSize: '0.88rem', color: '#000000', fontWeight: 700 }}>
+                        📱 (11) 98634-1914 <span style={{ fontWeight: 500, color: '#222222' }}>— Pedro Henrique</span>
+                      </span>
                       <button
                         type="button"
                         onClick={() => {
@@ -1524,7 +1532,7 @@ export default function PedidoPersonalizado() {
                           setPixCopiado('11986341914');
                           setTimeout(() => setPixCopiado(null), 2000);
                         }}
-                        style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11986341914' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11986341914' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 600 }}
+                        style={{ fontSize: '0.75rem', padding: '0.25rem 0.65rem', cursor: 'pointer', borderRadius: '6px', border: '1px solid var(--primary-green)', background: pixCopiado === '11986341914' ? 'var(--primary-green)' : '#FFFFFF', color: pixCopiado === '11986341914' ? '#FFFFFF' : 'var(--primary-green)', fontWeight: 700 }}
                       >
                         {pixCopiado === '11986341914' ? 'Copiado! ✓' : 'Copiar Pix'}
                       </button>
