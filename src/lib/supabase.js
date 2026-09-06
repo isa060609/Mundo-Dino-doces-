@@ -35,7 +35,7 @@ export const OFFICIAL_PRODUCTS = [
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolo-leite-morango.jpg',
+    imagem: '/bolos-dino.jpg',
     disponivel: true
   },
   {
