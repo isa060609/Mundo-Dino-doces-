@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Trash2, Plus, Minus, ShoppingBag, ArrowRight, ArrowLeft, CheckCircle2,
-  AlertCircle, MapPin, Clock, Calendar, MessageCircle
+  AlertCircle, MapPin, Clock, Calendar, MessageCircle, QrCode, CreditCard, Banknote
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -21,6 +21,11 @@ export default function Carrinho() {
   const [dataDesejada, setData]       = useState('');
   const [horarioDesejado, setHorario] = useState('');
   const [observacoes, setObservacoes] = useState('');
+
+  /* Forma de Pagamento */
+  const [formaPagamento, setFormaPagamento] = useState('Pix');
+  const [precisaTroco, setPrecisaTroco]     = useState('nao');
+  const [valorTrocoPara, setValorTrocoPara] = useState('');
 
   /* UI */
   const [submitting, setSubmitting]   = useState(false);
@@ -120,6 +125,8 @@ export default function Carrinho() {
         taxa_entrega_valor: deliveryInfo.fee,
         data_desejada: dataDesejada,
         horario_desejado: horarioDesejado,
+        forma_pagamento: formaPagamento,
+        troco_para: formaPagamento === 'Dinheiro' && precisaTroco === 'sim' ? valorTrocoPara.trim() : null,
         observacoes: observacoes.trim() || null,
         subtotal_itens: cartTotal,
         valor_total: deliveryInfo.fee !== null ? cartTotal + deliveryInfo.fee : cartTotal,
@@ -145,13 +152,20 @@ export default function Carrinho() {
         return `• ${quantity}x ${product.nome}${opcaoInfo}${tamanhoInfo} - ${formatPrice(product.preco * quantity)}`;
       }).join('\n');
 
+      const paymentSummary = formaPagamento === 'Pix'
+        ? '📱 Pix'
+        : (formaPagamento === 'Cartão'
+            ? '💳 Cartão (Pessoalmente)'
+            : `💵 Dinheiro (Pessoalmente)${precisaTroco === 'sim' && valorTrocoPara.trim() ? ` (Troco para ${valorTrocoPara.trim()})` : (precisaTroco === 'nao' ? ' (Sem troco)' : '')}`);
+
       const waMsg = `🧁 *NOVO PEDIDO - MUNDO DINO DOCES* 🦖\n\n` +
         `👤 *Cliente:* ${nome.trim()}\n` +
         `📦 *Forma de Recebimento:* ${formaRecebimento}\n` +
         (formaRecebimento === 'Entrega' ? `📍 *Endereço:* ${endereco.trim()}\n` : '') +
         (distanciaKm ? `📏 *Distância Calculada:* ~${distanciaKm.toFixed(1)} km\n` : '') +
         `📅 *Data Desejada:* ${dataDesejada}\n` +
-        `⏰ *Horário Desejado:* ${horarioDesejado}\n\n` +
+        `⏰ *Horário Desejado:* ${horarioDesejado}\n` +
+        `💳 *Forma de Pagamento:* ${paymentSummary}\n\n` +
         `📋 *ITENS DO PEDIDO:*\n${itensTexto}\n\n` +
         `💵 *Subtotal:* ${formatPrice(cartTotal)}\n` +
         `🛵 *Taxa de Entrega:* ${deliveryInfo.label}\n` +
@@ -518,6 +532,93 @@ export default function Carrinho() {
                     required
                   />
                 </div>
+
+                {/* Forma de Pagamento */}
+                <div style={{ marginTop: '0.5rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border-color)' }}>
+                  <label className="form-label" style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--chocolate-brown)', marginBottom: '0.4rem' }}>
+                    💳 Forma de Pagamento
+                  </label>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                    Selecione como deseja pagar:
+                  </p>
+
+                  <div className="cp-options-wrap" style={{ marginBottom: '0.75rem' }}>
+                    {[
+                      { value: 'Pix', label: '📱 Pix' },
+                      { value: 'Cartão', label: '💳 Cartão (Pessoalmente)' },
+                      { value: 'Dinheiro', label: '💵 Dinheiro (Pessoalmente)' }
+                    ].map(p => (
+                      <button
+                        key={p.value}
+                        type="button"
+                        onClick={() => setFormaPagamento(p.value)}
+                        className={`cp-option-btn${formaPagamento === p.value ? ' selected' : ''}`}
+                        style={{ fontSize: '0.88rem', padding: '0.55rem 1.1rem' }}
+                      >
+                        {formaPagamento === p.value && <CheckCircle2 size={14} />}
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {formaPagamento === 'Pix' && (
+                    <div style={{ backgroundColor: 'var(--cream-bg)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '0.75rem 1rem', fontSize: '0.85rem', color: 'var(--chocolate-brown)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                      <QrCode size={18} color="var(--primary-green)" />
+                      <span>Pagamento via <strong>Pix</strong>: a chave será enviada no WhatsApp para transferência rápida.</span>
+                    </div>
+                  )}
+
+                  {formaPagamento === 'Cartão' && (
+                    <div style={{ backgroundColor: 'var(--cream-bg)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '0.75rem 1rem', fontSize: '0.85rem', color: 'var(--chocolate-brown)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                      <CreditCard size={18} color="var(--primary-green)" />
+                      <span>Pagamento com <strong>Cartão (Débito ou Crédito)</strong> pessoalmente na entrega ou retirada.</span>
+                    </div>
+                  )}
+
+                  {formaPagamento === 'Dinheiro' && (
+                    <div style={{ backgroundColor: 'var(--cream-bg)', border: '1px solid var(--border-color)', borderRadius: '10px', padding: '0.9rem', marginBottom: '1rem' }}>
+                      <p style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--chocolate-brown)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <Banknote size={16} color="var(--primary-green)" />
+                        <span>Pagamento em dinheiro pessoalmente. Precisa de troco?</span>
+                      </p>
+                      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.65rem', flexWrap: 'wrap' }}>
+                        <button
+                          type="button"
+                          onClick={() => setPrecisaTroco('nao')}
+                          className={`cp-option-btn${precisaTroco === 'nao' ? ' selected' : ''}`}
+                          style={{ fontSize: '0.82rem', padding: '0.35rem 0.8rem' }}
+                        >
+                          {precisaTroco === 'nao' && <CheckCircle2 size={13} />}
+                          Não preciso de troco
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPrecisaTroco('sim')}
+                          className={`cp-option-btn${precisaTroco === 'sim' ? ' selected' : ''}`}
+                          style={{ fontSize: '0.82rem', padding: '0.35rem 0.8rem' }}
+                        >
+                          {precisaTroco === 'sim' && <CheckCircle2 size={13} />}
+                          Preciso de troco
+                        </button>
+                      </div>
+
+                      {precisaTroco === 'sim' && (
+                        <div className="form-group" style={{ margin: 0 }}>
+                          <label className="form-label" style={{ fontSize: '0.8rem' }}>Troco para quanto?</label>
+                          <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Ex: R$ 50,00 ou R$ 100,00"
+                            value={valorTrocoPara}
+                            onChange={e => setValorTrocoPara(e.target.value)}
+                            style={{ maxWidth: '280px' }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <div className="form-group">
                   <label className="form-label">Observações do pedido (Opcional)</label>
                   <textarea
