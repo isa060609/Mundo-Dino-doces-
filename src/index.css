@@ -1453,6 +1453,29 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--chocolate-brown);
 }
 
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.schedule-grid .form-label {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.5rem;
+  line-height: 1.5rem;
+}
+
+@media (max-width: 520px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 .form-input {
   width: 100%;
   padding: 0.85rem 1.15rem;

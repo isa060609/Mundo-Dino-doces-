@@ -483,7 +483,7 @@ export default function Carrinho() {
               </div>
 
               {/* Agendamento Data e Hora */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginTop: '1rem' }}>
+              <div className="schedule-grid" style={{ marginTop: '1rem' }}>
                 <div className="form-group">
                   <label className="form-label">📅 Data desejada</label>
                   <input
