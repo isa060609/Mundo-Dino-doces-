@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Trash2, Plus, Minus, ShoppingBag, ArrowRight, ArrowLeft, CheckCircle2,
-  AlertCircle, MapPin, Clock, Calendar
+  AlertCircle, MapPin, Clock, Calendar, MessageCircle
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -26,6 +26,8 @@ export default function Carrinho() {
   const [submitting, setSubmitting]   = useState(false);
   const [success, setSuccess]         = useState(false);
   const [error, setError]             = useState(null);
+  const [lastOrderWhatsAppUrl, setLastOrderWhatsAppUrl]   = useState('');
+  const [lastOrderWhatsAppUrl2, setLastOrderWhatsAppUrl2] = useState('');
 
   const formatPrice = (val) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -136,6 +138,39 @@ export default function Carrinho() {
         localStorage.setItem('dino_doces_orders', JSON.stringify([orderPayload, ...existingOrders]));
       }
 
+      // Montar mensagem para o WhatsApp do lojista
+      const itensTexto = cartItems.map(({ product, quantity }) => {
+        const opcaoInfo = product.opcao ? ` [${product.opcao}]` : '';
+        const tamanhoInfo = product.tamanho ? ` (${product.tamanho})` : '';
+        return `• ${quantity}x ${product.nome}${opcaoInfo}${tamanhoInfo} - ${formatPrice(product.preco * quantity)}`;
+      }).join('\n');
+
+      const waMsg = `🧁 *NOVO PEDIDO - MUNDO DINO DOCES* 🦖\n\n` +
+        `👤 *Cliente:* ${nome.trim()}\n` +
+        `📦 *Forma de Recebimento:* ${formaRecebimento}\n` +
+        (formaRecebimento === 'Entrega' ? `📍 *Endereço:* ${endereco.trim()}\n` : '') +
+        (distanciaKm ? `📏 *Distância Calculada:* ~${distanciaKm.toFixed(1)} km\n` : '') +
+        `📅 *Data Desejada:* ${dataDesejada}\n` +
+        `⏰ *Horário Desejado:* ${horarioDesejado}\n\n` +
+        `📋 *ITENS DO PEDIDO:*\n${itensTexto}\n\n` +
+        `💵 *Subtotal:* ${formatPrice(cartTotal)}\n` +
+        `🛵 *Taxa de Entrega:* ${deliveryInfo.label}\n` +
+        `💰 *TOTAL DO PEDIDO:* ${valorTotalFinal}\n` +
+        (observacoes.trim() ? `\n📝 *Observações:* ${observacoes.trim()}` : '');
+
+      const waUrl1 = `https://wa.me/5511913395183?text=${encodeURIComponent(waMsg)}`;
+      const waUrl2 = `https://wa.me/5511986341914?text=${encodeURIComponent(waMsg)}`;
+
+      setLastOrderWhatsAppUrl(waUrl1);
+      setLastOrderWhatsAppUrl2(waUrl2);
+
+      // Tenta abrir o WhatsApp imediatamente
+      try {
+        window.open(waUrl1, '_blank');
+      } catch (e) {
+        console.warn('Bloqueador de popup ativo:', e);
+      }
+
       setSuccess(true);
       clearCart();
     } catch (err) {
@@ -157,8 +192,85 @@ export default function Carrinho() {
             Pedido realizado com sucesso!
           </h2>
           <p className="empty-state-text order-success-text">
-            Seu pedido foi recebido com carinho e já está sendo preparado.
+            Seu pedido foi registrado no sistema e enviado diretamente para o nosso WhatsApp!
           </p>
+
+          {/* Bloco de Notificação / Botão do WhatsApp */}
+          <div style={{
+            backgroundColor: 'var(--cream-bg)',
+            border: '1.5px solid #25D366',
+            borderRadius: '16px',
+            padding: '1.5rem',
+            margin: '1.5rem 0',
+            textAlign: 'center',
+            maxWidth: '520px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            <p style={{ fontWeight: 700, color: 'var(--chocolate-brown)', marginBottom: '0.5rem', fontSize: '1.05rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <MessageCircle size={22} color="#25D366" />
+              <span>Pedido pronto para o WhatsApp</span>
+            </p>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: 1.4 }}>
+              Se a conversa do WhatsApp não tiver aberto automaticamente, clique em um dos botões abaixo para enviar a mensagem:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'center' }}>
+              {lastOrderWhatsAppUrl && (
+                <a
+                  href={lastOrderWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{
+                    backgroundColor: '#25D366',
+                    color: '#FFFFFF',
+                    fontWeight: 700,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.6rem',
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontSize: '0.95rem',
+                    boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)',
+                    width: '100%',
+                    maxWidth: '340px',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <MessageCircle size={20} />
+                  <span>Enviar no WhatsApp (11) 91339-5183</span>
+                </a>
+              )}
+              {lastOrderWhatsAppUrl2 && (
+                <a
+                  href={lastOrderWhatsAppUrl2}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{
+                    backgroundColor: '#128C7E',
+                    color: '#FFFFFF',
+                    fontWeight: 600,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.6rem',
+                    padding: '0.6rem 1.25rem',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontSize: '0.85rem',
+                    width: '100%',
+                    maxWidth: '340px',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <MessageCircle size={18} />
+                  <span>Enviar p/ Atendimento (11) 98634-1914</span>
+                </a>
+              )}
+            </div>
+          </div>
+
           <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link to="/meus-pedidos" className="btn btn-primary">
               Acompanhar meus pedidos
