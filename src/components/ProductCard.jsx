@@ -8,8 +8,13 @@ export default function ProductCard({ product }) {
   const [selectedTamanho, setSelectedTamanho] = useState(
     product.tamanhos ? product.tamanhos[0] : null
   );
+  const [selectedOpcao, setSelectedOpcao] = useState(
+    product.opcoes ? product.opcoes[0] : null
+  );
 
-  const currentPrice = selectedTamanho ? selectedTamanho.preco : product.preco;
+  const currentPrice = selectedOpcao
+    ? selectedOpcao.preco
+    : (selectedTamanho ? selectedTamanho.preco : product.preco);
 
   const formatPrice = (value) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -19,10 +24,23 @@ export default function ProductCard({ product }) {
   };
 
   const handleAddToCart = () => {
+    let itemId = product.id;
+    let finalNome = product.nome;
+
+    if (selectedTamanho) {
+      itemId = `${itemId}-${selectedTamanho.tamanho}`;
+    }
+    if (selectedOpcao) {
+      itemId = `${itemId}-${selectedOpcao.nome}`;
+      finalNome = `${product.nome} (${selectedOpcao.nome})`;
+    }
+
     const itemToAdd = {
       ...product,
-      id: selectedTamanho ? `${product.id}-${selectedTamanho.tamanho}` : product.id,
+      id: itemId,
+      nome: finalNome,
       tamanho: selectedTamanho ? selectedTamanho.tamanho : product.tamanho,
+      opcao: selectedOpcao ? selectedOpcao.nome : null,
       preco: currentPrice
     };
     addToCart(itemToAdd, 1);
@@ -120,6 +138,38 @@ export default function ProductCard({ product }) {
                     }}
                   >
                     {t.tamanho}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Seletor de Opções (ex: Coberturas do Brownie) */}
+        {product.opcoes && (
+          <div style={{ margin: '0.75rem 0', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-muted)' }}>Cobertura:</span>
+            <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+              {product.opcoes.map((op) => {
+                const isSelected = selectedOpcao?.nome === op.nome;
+                return (
+                  <button
+                    key={op.nome}
+                    type="button"
+                    onClick={() => setSelectedOpcao(op)}
+                    style={{
+                      padding: '0.3rem 0.7rem',
+                      borderRadius: '999px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      border: isSelected ? '1.5px solid var(--primary-green)' : '1.5px solid var(--border-color)',
+                      backgroundColor: isSelected ? 'var(--primary-green)' : 'var(--cream-bg)',
+                      color: isSelected ? '#FFFFFF' : 'var(--chocolate-brown)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {op.nome}
                   </button>
                 );
               })}

@@ -5,9 +5,9 @@ import { Cake, Flame, CupSoda, ArrowRight, Sparkles, ChevronLeft, ChevronRight }
 const SLIDES = [
   {
     id: 1,
-    categoryName: 'Bolos no pote',
+    categoryName: 'Bolos & Brownies',
     priceInfo: 'R$ 12,00',
-    description: 'Bolos fofinhos e saborosos, preparados em camadas com recheios cremosos e combinações deliciosas.',
+    description: 'Bolos fofinhos no pote e brownies artesanais com opção de cobertura de avelã ou chocolate.',
     image: '/bolos-dino.jpg',
     icon: Cake
   },

@@ -39,16 +39,16 @@ export default function Home() {
         </div>
 
         <div className="categories-grid">
-          {/* Card 1: Bolos no Pote */}
+          {/* Card 1: Bolos no Pote & Brownies */}
           <div className="category-card" onClick={() => navigate('/bolos')} style={{ cursor: 'pointer' }}>
             <div className="category-icon-wrapper cat-bolos">
               <Cake size={36} />
             </div>
-            <h3 className="category-title">Bolos no Pote</h3>
-            <p className="category-desc">Deliciosos sabores para adoçar seu dia</p>
+            <h3 className="category-title">Bolos & Brownies</h3>
+            <p className="category-desc">Deliciosos bolos no pote e brownies artesanais</p>
             <div className="category-price-info">R$ 12,00</div>
             <Link to="/bolos" className="btn btn-secondary btn-sm btn-full">
-              Ver Bolos
+              Ver Bolos & Brownies
             </Link>
           </div>
 

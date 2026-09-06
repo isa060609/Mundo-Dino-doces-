@@ -41,11 +41,16 @@ export const OFFICIAL_PRODUCTS = [
   {
     id: 'bolo-4',
     nome: 'Brownie',
-    descricao: 'Brownie artesanal macio e úmido por dentro, casquinha crocante e sabor irresistível de chocolate nobre.',
+    descricao: 'Brownie artesanal macio e úmido por dentro com casquinha crocante. Opção com ou sem cobertura de avelã ou chocolate!',
     preco: 12.00,
     categoria: 'bolos',
     tamanho: null,
-    imagem: '/bolos-dino.jpg',
+    opcoes: [
+      { nome: 'Sem cobertura', preco: 12.00 },
+      { nome: 'Cobertura de Avelã', preco: 12.00 },
+      { nome: 'Cobertura de Chocolate', preco: 12.00 }
+    ],
+    imagem: '/brownie.jpg',
     disponivel: true
   },
   {

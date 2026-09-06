@@ -40,9 +40,9 @@ export default function Bolos() {
           </div>
 
           <div style={{ textAlign: 'center' }}>
-            <h1 className="section-title">Bolos no Pote</h1>
+            <h1 className="section-title">Bolos no Pote & Brownies</h1>
             <p className="section-subtitle">
-              Deliciosos sabores para adoçar seu dia — R$ 12,00 cada
+              Deliciosos sabores para adoçar seu dia — R$ 12,00 cada (opção com ou sem cobertura)
             </p>
           </div>
         </div>

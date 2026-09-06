@@ -12,17 +12,17 @@ import { calculateDistance, getDeliveryFee, isWeekday, validateDeliveryTime } fr
 
 /* ─── Definição das Categorias Principais ───────────────────────── */
 const CATEGORIAS = [
-  { id: 'bolos',   nome: 'Bolos',   icon: '🍰', sub: 'Bolos no pote e encomendas' },
-  { id: 'acai',    nome: 'Açaí',    icon: '🥣', sub: 'Açaí com frutas e complementos' },
-  { id: 'batidas', nome: 'Batidas', icon: '🥤', sub: 'Batidas cremosas e refrescantes' }
+  { id: 'bolos',   nome: 'Bolos & Brownies', icon: '🍰', sub: 'Bolos no pote, brownies e encomendas' },
+  { id: 'acai',    nome: 'Açaí',             icon: '🥣', sub: 'Açaí com frutas e complementos' },
+  { id: 'batidas', nome: 'Batidas',          icon: '🥤', sub: 'Batidas cremosas e refrescantes' }
 ];
 
 /* ─── Dados dos 6 cards de Bolos ────────────────────────────────── */
 const BOLO_CARDS = [
   {
     icon: Shuffle,
-    title: 'Escolha a massa',
-    desc: 'Selecione a massa da sua preferência para o bolo no pote.'
+    title: 'Escolha a massa / Brownie',
+    desc: 'Selecione chocolate, baunilha ou brownie com opções de cobertura.'
   },
   {
     icon: Layers,
@@ -52,7 +52,8 @@ const BOLO_CARDS = [
 ];
 
 /* Opções de Bolos */
-const MASSAS_BOLO       = ['Chocolate', 'Baunilha'];
+const MASSAS_BOLO       = ['Chocolate', 'Baunilha', 'Brownie'];
+const COBERTURAS_BOLO   = ['Sem cobertura', 'Cobertura de Avelã', 'Cobertura de Chocolate'];
 const RECHEIOS_BOLO     = ['Brigadeiro de chocolate', 'Maracujá', 'Prestígio', 'Brigadeiro de leite', 'Chocolate', 'Beijinho'];
 const FRUTAS_BOLO       = ['Morango', 'Uva', 'Banana', 'Maracujá'];
 const TAMANHOS_BOLO     = [
@@ -159,6 +160,7 @@ export default function PedidoPersonalizado() {
   /* ── Estado da Personalização de BOLO ── */
   const [activeBoloCard, setActiveBoloCard]       = useState(null);
   const [massaBolo, setMassaBolo]                 = useState('');
+  const [coberturaBolo, setCoberturaBolo]         = useState('');
   const [recheioBolo, setRecheioBolo]             = useState('');
   const [frutasBolo, setFrutasBolo]               = useState([]);
   const [descBoloCustom, setDescBoloCustom]       = useState('');
@@ -244,7 +246,7 @@ export default function PedidoPersonalizado() {
   /* ── Validação se o item atual tem ao menos 1 escolha para adicionar ── */
   const canAddItem = useMemo(() => {
     if (categoriaAtual === 'bolos') {
-      return !!(massaBolo || recheioBolo || frutasBolo.length || descBoloCustom.trim() || tamanhoBolo || intensidadeBolo || caldaBolo || encomendaBolo);
+      return !!(massaBolo || coberturaBolo || recheioBolo || frutasBolo.length || descBoloCustom.trim() || tamanhoBolo || intensidadeBolo || caldaBolo || encomendaBolo);
     }
     if (categoriaAtual === 'acai') {
       return !!(tamanhoAcai || frutasAcai.length || caldaAcai || complementosAcai.length);
@@ -254,7 +256,7 @@ export default function PedidoPersonalizado() {
     }
     return false;
   }, [
-    categoriaAtual, massaBolo, recheioBolo, frutasBolo, descBoloCustom, tamanhoBolo, intensidadeBolo, caldaBolo, encomendaBolo,
+    categoriaAtual, massaBolo, coberturaBolo, recheioBolo, frutasBolo, descBoloCustom, tamanhoBolo, intensidadeBolo, caldaBolo, encomendaBolo,
     tamanhoAcai, frutasAcai, caldaAcai, complementosAcai,
     tamanhoBatida, saborBatida, acompBatida
   ]);
@@ -268,7 +270,8 @@ export default function PedidoPersonalizado() {
 
     if (categoriaAtual === 'bolos') {
       const detalhes = [];
-      if (massaBolo)              detalhes.push(`Massa: ${massaBolo}`);
+      if (massaBolo)              detalhes.push(`Massa/Base: ${massaBolo}`);
+      if (coberturaBolo)          detalhes.push(`Cobertura: ${coberturaBolo}`);
       if (recheioBolo)            detalhes.push(`Recheio: ${recheioBolo}`);
       if (frutasBolo.length)      detalhes.push(`Frutas: ${frutasBolo.join(', ')}`);
       if (tamanhoBolo)            detalhes.push(`Tamanho: ${tamanhoBolo.label}`);
@@ -277,11 +280,17 @@ export default function PedidoPersonalizado() {
       if (encomendaBolo)          detalhes.push(`Tipo: ${encomendaBolo}`);
       if (descBoloCustom.trim())  detalhes.push(`Customizado: "${descBoloCustom.trim()}"`);
 
+      const tipoBase = massaBolo === 'Brownie' ? 'Brownie' : 'Bolo no pote';
+      const itemTitle = encomendaBolo
+        || (massaBolo === 'Brownie'
+            ? (coberturaBolo ? `Brownie (${coberturaBolo})` : 'Brownie Artesanal')
+            : (tamanhoBolo ? `Bolo no pote (${tamanhoBolo.label})` : (massaBolo ? `Bolo (${massaBolo})` : 'Bolo/Brownie personalizado')));
+
       novoItem = {
         id: itemId,
-        categoria: 'Bolo',
-        icon: '🍰',
-        titulo: encomendaBolo || (tamanhoBolo ? `Bolo no pote (${tamanhoBolo.label})` : 'Bolo personalizado'),
+        categoria: massaBolo === 'Brownie' ? 'Brownie' : 'Bolo',
+        icon: massaBolo === 'Brownie' ? '🍫' : '🍰',
+        titulo: itemTitle,
         detalhes,
         precoUnitario: currentItemPrice.preco,
         isCustomPrice: currentItemPrice.preco === null,
@@ -290,6 +299,7 @@ export default function PedidoPersonalizado() {
 
       // Resetar form de bolo
       setMassaBolo('');
+      setCoberturaBolo('');
       setRecheioBolo('');
       setFrutasBolo([]);
       setDescBoloCustom('');
@@ -383,6 +393,7 @@ export default function PedidoPersonalizado() {
 
     if (hasCustomSelections) {
       setMassaBolo('');
+      setCoberturaBolo('');
       setRecheioBolo('');
       setFrutasBolo([]);
       setDescBoloCustom('');
@@ -595,10 +606,18 @@ export default function PedidoPersonalizado() {
     if (idx === 0) return (
       <div className="cp-panel">
         <div>
-          <p className="cp-panel-label">Escolha a massa</p>
+          <p className="cp-panel-label">Escolha a massa ou base (Chocolate, Baunilha ou Brownie)</p>
           <OptionsWrap>
             {MASSAS_BOLO.map(m => (
               <OptionBtn key={m} selected={massaBolo === m} onClick={() => setMassaBolo(m)}>{m}</OptionBtn>
+            ))}
+          </OptionsWrap>
+        </div>
+        <div style={{ marginTop: '1.25rem' }}>
+          <p className="cp-panel-label">Opção de Cobertura (Brownie ou Bolo)</p>
+          <OptionsWrap>
+            {COBERTURAS_BOLO.map(c => (
+              <OptionBtn key={c} selected={coberturaBolo === c} onClick={() => setCoberturaBolo(c)}>{c}</OptionBtn>
             ))}
           </OptionsWrap>
         </div>
@@ -670,6 +689,14 @@ export default function PedidoPersonalizado() {
           <OptionsWrap>
             {CALDAS_BOLO.map(c => (
               <OptionBtn key={c} selected={caldaBolo === c} onClick={() => setCaldaBolo(c)}>{c}</OptionBtn>
+            ))}
+          </OptionsWrap>
+        </div>
+        <div style={{ marginTop: '1rem' }}>
+          <p className="cp-panel-label">Opção de Cobertura</p>
+          <OptionsWrap>
+            {COBERTURAS_BOLO.map(c => (
+              <OptionBtn key={c} selected={coberturaBolo === c} onClick={() => setCoberturaBolo(c)}>{c}</OptionBtn>
             ))}
           </OptionsWrap>
         </div>
